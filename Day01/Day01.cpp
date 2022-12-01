@@ -2,10 +2,31 @@
 //
 
 #include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std::literals;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    std::ifstream input {"Input.txt"s };
+
+    std::uint64_t calories {};
+    std::uint64_t maxCalory {};
+    for (std::string line; std::getline(input, line); )
+    {
+        if (!line.empty())
+        {
+            calories += std::stoi(line);
+        }
+        else
+        {
+            maxCalory = std::max(calories, maxCalory);
+            calories = 0;
+        }
+    }
+
+    std::cout << "Max calories = "s << maxCalory;
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage

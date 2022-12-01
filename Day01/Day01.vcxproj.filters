@@ -20,8 +20,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Input.txt">
+    <CopyFileToFolders Include="Input.txt">
       <Filter>Fichiers de ressources</Filter>
-    </Text>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>
