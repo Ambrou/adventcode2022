@@ -2,10 +2,36 @@
 //
 
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <functional>
+
+using namespace std::literals;
+namespace ranges = std::ranges;
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    std::ifstream input { "Input.txt"s };
+
+    std::uint64_t calories {};
+    std::vector<std::uint64_t> listOfCalories {};
+    std::uint64_t maxCalory {};
+    for (std::string line; std::getline(input, line); )
+    {
+        if (!line.empty())
+        {
+            calories += std::stoi(line);
+        }
+        else
+        {
+            listOfCalories.push_back(calories);
+            calories = 0;
+        }
+    }
+    ranges::sort(listOfCalories, ranges::greater());
+    std::cout << "Max calories = "s << listOfCalories[0] + listOfCalories[1] + listOfCalories[2];
 }
 
 // Exécuter le programme : Ctrl+F5 ou menu Déboguer > Exécuter sans débogage
