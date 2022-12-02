@@ -21,15 +21,15 @@ int main()
 
 
     const std::map<std::string, std::uint32_t> resultTable { 
-        {"A X"s, draw + rock},
-        {"A Y"s, won + paper},
-        {"A Z"s, lost + scissors},
+        {"A X"s, lost + scissors},
+        {"A Y"s, draw + rock},
+        {"A Z"s, won + paper},
         {"B X"s, lost + rock},
         {"B Y"s, draw + paper},
         {"B Z"s, won + scissors},
-        {"C X"s, won + rock},
-        {"C Y"s, lost + paper},
-        {"C Z"s, draw + scissors}
+        {"C X"s, lost + paper},
+        {"C Y"s, draw + scissors},
+        {"C Z"s, won + rock}
     };
 
     std::uint32_t score { 0 };
