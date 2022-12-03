@@ -5,40 +5,61 @@
 #include <fstream>
 #include <string>
 #include <ranges>
+#include <vector>
 #include <algorithm>
+#include <set>
 
 using namespace std::literals;
+
+std::set<char> FindInterSection(const std::set<char>& st1, const std::set<char>& st2)
+{
+    std::set<char> st0;
+    std::set_intersection(st1.begin(), st1.end(),
+                          st2.begin(), st2.end(),
+                          std::inserter(st0, st0.end()));
+
+    return st0;
+}
+
+std::set<char> FindSharedLetters(const std::string& s1, const std::string& s2)
+{
+    std::set<char> st1(s1.begin(), s1.end());
+    std::set<char> st2(s2.begin(), s2.end());
+
+    return FindInterSection(st1, st2);
+}
+
 
 int main()
 {
 
     const auto toValue = [] (const auto& found) 
     {
-        if ('a' <= *found && *found <= 'z')
+        if ('a' <= found && found <= 'z')
         {
-            return *found - 'a' + 1;
+            return found - 'a' + 1;
         }
         else
         {
-            return *found - 'A' + 27;
+            return found - 'A' + 27;
         }
     };
 
     std::uint32_t prioritiesSum {0};
     std::ifstream input { "Input.txt"s };
-    for (std::string line; std::getline(input, line); )
+    for (std::string line1; std::getline(input, line1); )
     {
-        const auto length { line.length() / 2 };
+        std::string line2;
+        std::string line3;
+        std::getline(input, line2);
+        std::getline(input, line3);
 
-        const auto firstPackage = line | std::ranges::views::take(length);
-        const auto secondPackage = line | std::ranges::views::drop(length);
+        auto a = FindSharedLetters(line1, line2);
+        auto b = FindSharedLetters(line3, line2);
 
-        const auto found = std::ranges::find_first_of(firstPackage, secondPackage);
+        auto st0 = FindInterSection(a, b);
 
-        prioritiesSum += toValue(found);
-
-        
-
+        prioritiesSum += toValue(*st0.begin());
     }
     std::cout << "Hello World!\n" << prioritiesSum;
 }
