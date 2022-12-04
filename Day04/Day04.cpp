@@ -27,7 +27,10 @@ int main()
         std::uint64_t secondRangeMin { std::stoul(rangeMatch[3]) };
         std::uint64_t secondRangeMax { std::stoul(rangeMatch[4]) };
 
-        if ((firstRangeMin <= secondRangeMin && secondRangeMax <= firstRangeMax) || (secondRangeMin <= firstRangeMin && firstRangeMax <= secondRangeMax))
+        if(secondRangeMin <= firstRangeMin && firstRangeMin <= secondRangeMax ||
+           firstRangeMin <= secondRangeMin && secondRangeMin <= firstRangeMax || 
+           secondRangeMin <= firstRangeMax && firstRangeMax <= secondRangeMax ||
+           firstRangeMin <= secondRangeMax && secondRangeMax <= firstRangeMax)
         {
             count++;
         }
