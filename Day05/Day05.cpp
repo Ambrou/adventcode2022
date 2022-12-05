@@ -64,11 +64,8 @@ int main()
             const auto from { stoul(moveMatch[2]) };
             const auto to { stoul(moveMatch[3]) };
 
-            for (auto loop = 0l; loop < howMany; ++loop)
-            {
-                stacks[to-1].push_back(stacks[from - 1].back());
-                stacks[from - 1].pop_back();
-            }
+            std::copy(stacks[from - 1].end() - howMany, stacks[from - 1].end(), std::back_inserter(stacks[to - 1]));
+            stacks[from - 1].erase(stacks[from - 1].end() - howMany, stacks[from - 1].end());
         }
 
     }
