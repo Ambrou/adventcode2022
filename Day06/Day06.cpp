@@ -8,6 +8,17 @@
 
 using namespace std::literals;
 
+
+bool ifContain(const std::string& line, const size_t loop, const size_t size )
+{
+    bool found = true;
+    for (size_t index = 0; index < size - 1; ++index && found)
+    {
+        found &= std::find(line.begin() + index + 1 + loop, line.begin() + size + loop, line[index + loop]) == line.begin() + size + loop;
+    }
+    return found;
+}
+
 int main()
 {
     std::ifstream input { "Input.txt"s };
@@ -19,14 +30,9 @@ int main()
 
     for (size_t loop = 0; loop < line.size(); ++loop)
     {
-        auto a = std::find(line.begin() + 1 + loop, line.begin() + 4 + loop, line[0 + loop]);
-        auto b = std::find(line.begin() + 2 + loop, line.begin() + 4 + loop, line[1 + loop]);
-        auto c = std::find(line.begin() + 3 + loop, line.begin() + 4 + loop, line[2 + loop]);
-        if (std::find(line.begin() + 1 + loop, line.begin() + 4 + loop, line[0 + loop]) == line.begin() + 4 + loop &&
-            std::find(line.begin() + 2 + loop, line.begin() + 4 + loop, line[1 + loop]) == line.begin() + 4 + loop &&
-            std::find(line.begin() + 3 + loop, line.begin() + 4 + loop, line[2 + loop]) == line.begin() + 4 + loop)
+        if(ifContain(line, loop, 14))
         {
-            position = loop + 4;
+            position = loop + 14;
             break;
         }
     }
